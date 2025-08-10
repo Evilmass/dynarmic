@@ -21,6 +21,14 @@ namespace Dynarmic::Optimization {
 
 namespace {
 
+enum class ExtValueType {
+    Empty,
+    Single,
+    Double,
+    VectorDouble,
+    VectorQuad,
+};
+
 void FlagsPass(IR::Block& block) {
     using Iterator = std::reverse_iterator<IR::Block::iterator>;
 
@@ -207,13 +215,6 @@ void RegisterPass(IR::Block& block) {
         };
     };
 
-    enum class ExtValueType {
-        Empty,
-        Single,
-        Double,
-        VectorDouble,
-        VectorQuad,
-    };
     struct ExtRegInfo {
         ExtValueType value_type = {};
         IR::Value register_value;
